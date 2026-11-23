@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VICE COAST — Cover Studio</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">VC</span><span class="brand-name">VICE COAST</span><span class="brand-sub">COVER STUDIO</span></div>
+  <div class="top-actions">
+    <button id="surprise" type="button" class="btn ghost" title="Randomise the whole cover">🎲 Surprise me</button>
+    <button id="undo" type="button" class="btn ghost" title="Undo the last change">↩ Undo</button>
+    <button id="reset" type="button" class="btn ghost" title="Back to the default cover">Reset</button>
+  </div>
+</header>
+<main class="app">
+  <aside class="panel" aria-label="Cover controls">
+    <section class="group">
+      <h2>1 · Your photos</h2>
+      <p class="hint">Drop in your own photos — they fill the panels. Or try a sample.</p>
+      <div class="photo-row">
+        <label class="file-btn">📷 Photo 1 — hero<input id="photo1" type="file" accept="image/*"></label>
+        <label class="file-btn">📷 Photo 2<input id="photo2" type="file" accept="image/*"></label>
+      </div>
+      <div class="sample-row">
+        <button type="button" class="chip" data-sample="pier">Pier sample</button>
+        <button type="button" class="chip" data-sample="boulevard">Boulevard sample</button>
+        <button type="button" class="chip" id="clear-photos">No photos — art only</button>
+      </div>
+      <label class="slider-label">Hero zoom <span id="zoom-val">1.15×</span><input id="zoom" type="range" min="0.8" max="2.2" step="0.05" value="1.15"></label>
+      <label class="slider-label">Hero position <span id="pan-val">0</span><input id="pan" type="range" min="-100" max="100" step="1" value="0"></label>
+      <label class="slider-label">Panel tilt <span id="tilt-val">4°</span><input id="tilt" type="range" min="0" max="9" step="1" value="4"></label>
+    </section>
+    <section class="group">
+      <h2>2 · Words</h2>
+      <label>Title<input id="title" type="text" maxlength="24" value="VICE COAST"></label>
+      <label>Subtitle<input id="subtitle" type="text" maxlength="40" value="SUNSET HEIST"></label>
+      <label>Tagline<input id="tagline" type="text" maxlength="48" value="LEONIDA · EST. 2026"></label>
+    </section>
+    <section class="group">
+      <h2>3 · Look</h2>
+      <label>Layout
+        <select id="layout">
+          <option value="sunset-heist" selected>Sunset Heist — hero + two panels</option>
+          <option value="neon-nights">Neon Nights — tall hero, strip below</option>
+          <option value="coastline">Coastline — wide panorama</option>
+          <option value="wanted">Wanted — four-panel grid</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="sunset" selected>Sunset — orange / magenta</option>
+          <option value="neon">Neon Night — pink / cyan</option>
+          <option value="day">Day — teal / gold</option>
+          <option value="vice">Vice Pink — hot pink / purple</option>
+        </select>
+      </label>
+      <label>Characters
+        <select id="characters">
+          <option value="duo" selected>Duo — driver + rider</option>
+          <option value="woman">Solo — rider</option>
+          <option value="man">Solo — driver</option>
+          <option value="none">None — city only</option>
+        </select>
+      </label>
+      <label>Vehicle
+        <select id="vehicle">
+          <option value="car" selected>Sports car</option>
+          <option value="boat">Speedboat</option>
+          <option value="none">None</option>
+        </select>
+      </label>
+      <label class="slider-label">Warmth <span id="warmth-val">50</span><input id="warmth" type="range" min="0" max="100" step="1" value="50"></label>
+      <label class="slider-label">Glow <span id="glow-val">60</span><input id="glow" type="range" min="0" max="100" step="1" value="60"></label>
+      <label class="check"><input id="grain" type="checkbox" checked> Film grain + vignette</label>
+    </section>
+    <section class="group">
+      <h2>4 · Export</h2>
+      <div class="size-row" role="group" aria-label="Export size">
+        <button type="button" class="size-btn" data-size="1080x1080">1080 × 1080</button>
+        <button type="button" class="size-btn active" data-size="1080x1350">1080 × 1350</button>
+        <button type="button" class="size-btn" data-size="1920x1080">1920 × 1080</button>
+      </div>
+      <button id="export" type="button" class="btn primary">⬇ Export PNG — <span id="export-size">1080 × 1350</span></button>
+      <p id="status" role="status">Ready. Pick a photo, type a title, export.</p>
+      <p class="fine">Offline — your photos never leave this machine. All art is original, drawn in code.</p>
+    </section>
+  </aside>
+  <section class="stage" aria-label="Live preview">
+    <div class="stage-head"><span id="stage-label">LIVE PREVIEW · 1080 × 1350</span><span class="seed-line">Seed <b id="seed-val">7</b> <button id="dice" type="button" title="New random seed">🎲</button></span></div>
+    <canvas id="cover" width="1080" height="1350" aria-label="The cover preview"></canvas>
+    <p class="stage-foot">What you see is what exports — same drawing, same size, no surprises.</p>
+  </section>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
